@@ -25,33 +25,43 @@ void gameSetup(){
   }
 }
 
+float moveFlame;
+int timer = 0;
 
 void gameDraw(){  
   image(stage,800/2,481/2);
   for(int i=0;i<stageNumber+1;i++){
-    //if(i==0)continue;
-    int moveFlame=(int)(120/(Math.abs(barState[i].move)*0.75));
     if(barState[i].direction){
       int num=0;
       barState[i].count -= 1;
       if(barState[i].count <= -120){
         barState[i].count = moveFlame;
+        barState[i].move *= 1.05;
+        moveFlame *= 1.05;
+        
         if(random(100)>50){
           barState[i].move *= -1;
         }
-        barState[i].xy = (int)random(0+Math.abs(barState[i].move)* moveFlame,400-Math.abs(barState[i].move)* moveFlame);
+        barState[i].xy = (int)random(0+Math.abs(barState[i].move)* moveFlame/2,400-Math.abs(barState[i].move)* moveFlame/2);
+        barState[i].visibility = true;
+      }
+      if(barState[i].count <= -30){
+        barState[i].visibility = false;
+        barState[i].count -= random(0,70);
       }
       if(barState[i].count > 0)barState[i].xy += barState[i].move;
       if(barState[i].count <= 0){
         num+=1;
-        if(Math.abs(barState[i].xy - playerY) < 23+15){
+        if(Math.abs(barState[i].xy - playerY) < 23+15 && barState[i].visibility){
           println("接触した！");
+          pause = 3;
         }
-      }image(barImage[i][barState[i].img+num],800/2,barState[i].xy);
+      }
+      if(barState[i].visibility)image(barImage[i][barState[i].img+num],800/2,barState[i].xy);
       
     }
     else{
-      image(barImage[i][barState[i].img],barState[i].xy,481/2);
+      if(barState[i].visibility)image(barImage[i][barState[i].img],barState[i].xy,481/2);
     }
     
   }

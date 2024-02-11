@@ -17,12 +17,19 @@ class BarInfo{
     public int xy;
     public Boolean direction;
     public int img;
-    public int count;
+    public float count;
     public int move;
+    public Boolean visibility;
     public BarInfo(Boolean dir){
         direction = dir;
         move = -1;
-        count = 60;
+        count = 60-(int)random(0,110);
+        if(count > 0){
+          visibility = true;
+        }
+        else{
+          visibility = false;
+        }
         if(direction){
             xy = 200;
             img = 0;

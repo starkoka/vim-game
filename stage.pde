@@ -1,18 +1,22 @@
-PImage map,player,stage;
+PImage map,player,stage,pauseImg;
 int gameMode = 0;//0:マップ 1:ゲーム画面
 int stageNumber = 0;
-int pause = 0;//0:なし 1:中断 2:ヘルプ 
+int pause = 0;//0:なし 1:中断 2:ヘルプ 3:ゲームリザルト
 void setup(){
     size(800,481);
     map = loadImage("image/map.png");
     player = loadImage("image/player.png");
     stage = loadImage("image/stage.png");
+    pauseImg = loadImage("image/pause.png");
     imageMode(CENTER);
     gameSetup();
 }
 
+Boolean pauseCheck = false;
+
 void draw(){
   if(pause == 0){
+    pauseCheck = false;
     if(gameMode == 0){
       mapDraw();
     }
@@ -21,7 +25,18 @@ void draw(){
     }
   }
   else{
-    
+    if(!pauseCheck){
+      pauseCheck = true;
+      if(pause==1){
+        image(pauseImg,800/2,481/2);
+      }
+      if(pause==2){
+        
+      }
+      if(pause==3){
+        image(pauseImg,800/2,481/2);
+      }
+    }
   }
 }
 
@@ -45,6 +60,7 @@ void stageKey(){
         println("ステージ選択!");
         println(stageNumber);
         gameMode = 1;
+        moveFlame = 120;
     }
 }
 
