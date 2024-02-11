@@ -34,7 +34,7 @@ void gameDraw(){
     if(barState[i].direction){
       int num=0;
       barState[i].count -= 1;
-      if(barState[i].count <= -60){
+      if(barState[i].count <= -120){
         barState[i].count = moveFlame;
         if(random(100)>50){
           barState[i].move *= -1;
