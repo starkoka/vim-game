@@ -3,13 +3,13 @@ class KeyInfo{
     public Boolean j;
     public Boolean k;
     public Boolean l;
-    public Boolean space;
+    public Boolean enter;
     public KeyInfo(){
         h = false;
         j = false;
         k = false;
         l = false;
-        space = false;
+        enter = false;
     }
 }
 

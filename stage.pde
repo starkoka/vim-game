@@ -1,5 +1,7 @@
 PImage map,player,stage;
 int gameMode = 0;//0:マップ 1:ゲーム画面
+int stageNumber = 0;
+int pause = 0;//0:なし 1:中断 2:ヘルプ 
 void setup(){
     size(800,481);
     map = loadImage("image/map.png");
@@ -9,7 +11,21 @@ void setup(){
     gameSetup();
 }
 
-int stageNumber = 0;
+void draw(){
+  if(pause == 0){
+    if(gameMode == 0){
+      mapDraw();
+    }
+    if(gameMode == 1){
+      gameDraw();
+    }
+  }
+  else{
+    
+  }
+}
+
+
 
 
 KeyInfo keyState = new KeyInfo();
@@ -25,7 +41,7 @@ void stageKey(){
     else if (keyState.l) {
         if(stageNumber!=5)stageNumber += 1;
     }
-    else if(keyState.space){
+    else if(keyState.enter){
         println("ステージ選択!");
         println(stageNumber);
         gameMode = 1;
@@ -37,7 +53,7 @@ void keyPressed() {
     if (keyCode == 'J') keyState.j = true;
     if (keyCode == 'K') keyState.k = true;
     if (keyCode == 'L') keyState.l = true;
-    if (keyCode == ' ')keyState.space = true;
+    if (keyCode == ENTER)keyState.enter = true;
     if(gameMode == 0){
         stageKey();
     }
@@ -51,5 +67,5 @@ void keyReleased() {
     if (keyCode == 'J') keyState.j = false;
     if (keyCode == 'K') keyState.k = false;
     if (keyCode == 'L') keyState.l = false;
-    if (keyCode == ' ')keyState.space = false;
+    if (keyCode == ENTER)keyState.enter = false;
 }
