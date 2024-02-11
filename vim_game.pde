@@ -24,7 +24,6 @@ void gameDraw(){
   int moveFlame=(int)(120/(Math.abs(barState.move)*0.75));
   println(moveFlame);
   image(stage,800/2,481/2);
-  image(player,playerX,playerY);
   if(barState.direction){
     int num=0;
     barState.count -= 1;
@@ -43,6 +42,8 @@ void gameDraw(){
   else{
     image(barImage[barState.img],barState.xy,481/2);
   }
+  
+  image(player,playerX,playerY);
 }
 
 int playerX = 800/2, playerY = 481/2;
