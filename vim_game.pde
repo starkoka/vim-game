@@ -1,6 +1,6 @@
 PImage[][] barImage;
 BarInfo barState[];
-
+int[] bestScore;
 
 void gameSetup(){
   barImage = new PImage[6][];
@@ -23,21 +23,27 @@ void gameSetup(){
   for(int i=0;i<6;i++){
     barState[i] = new BarInfo(true);
   }
+  
+  bestScore = new int[6];
+  for(int i=0;i<6;i++){
+    bestScore[i] = 0;
+  }
 }
 
-float moveFlame;
+float moveFlame=120;
 int timer = 0;
 
 void gameDraw(){  
+  gameScore += 1;
   image(stage,800/2,481/2);
   for(int i=0;i<stageNumber+1;i++){
     if(barState[i].direction){
       int num=0;
       barState[i].count -= 1;
       if(barState[i].count <= -120){
-        barState[i].count = moveFlame;
-        barState[i].move *= 1.05;
-        moveFlame *= 1.05;
+        barState[i].count = moveFlame-(int)random(0,moveFlame/3);
+        barState[i].move *= 1.01;
+        moveFlame /= 1.01;
         
         if(random(100)>50){
           barState[i].move *= -1;
@@ -55,6 +61,7 @@ void gameDraw(){
         if(Math.abs(barState[i].xy - playerY) < 23+15 && barState[i].visibility){
           println("接触した！");
           pause = 3;
+          println(gameScore);
         }
       }
       if(barState[i].visibility)image(barImage[i][barState[i].img+num],800/2,barState[i].xy);
