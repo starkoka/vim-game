@@ -18,10 +18,9 @@ void setup(){
 }
 
 Boolean pauseCheck = false;
-void draw(){  
-  println(keyState.f1);
-  println(pause);
-  println("---------");
+Boolean changePauseHelp = true;
+Boolean changeCommandMode = true;
+void draw(){
   if(pause == 0){
     pauseCheck = false;
     if(gameMode == 0){
@@ -60,7 +59,13 @@ void draw(){
   }
   
   if(keyState.colon){
-    keyState.commandMode = !keyState.commandMode;
+    if(changeCommandMode){
+      keyState.commandMode = !keyState.commandMode;
+      changeCommandMode = false;
+    }
+  }
+  else{
+    changeCommandMode = true;
   }
   if(keyState.commandMode){
     String next = "command mode";
@@ -84,14 +89,18 @@ void draw(){
     }
   }
   if(keyState.f1){
-      if(pause==0){
-        pause = 2;
-      }
-      else if(pause==2){
-        pause = 0;
+      if(changePauseHelp){
+        if(pause==0){
+          pause = 2;
+        }
+        else if(pause==2){
+          pause = 0;
+        }
+        changePauseHelp = false;
       }
   }
   else{
+    changePauseHelp = true;
     if(pause!=0)image(hideCommandModeImg,800/2,481/2);
   }
 }
