@@ -8,6 +8,7 @@ class KeyInfo{
     public Boolean colon;
     public Boolean commandMode;
     public Boolean esc;
+    public Boolean f1;
     public KeyInfo(){
         h = false;
         j = false;
@@ -18,6 +19,7 @@ class KeyInfo{
         commandMode = false;
         esc = false;
         q = false;
+        f1 = false;
     }
 }
 

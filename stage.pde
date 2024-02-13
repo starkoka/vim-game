@@ -1,4 +1,4 @@
-PImage map,player,stage,pauseImg,gameOverImg,hideCommandModeImg;
+PImage map,player,stage,pauseImg,gameOverImg,hideCommandModeImg,helpImg;
 int gameMode = 0;//0:マップ 1:ゲーム画面
 int stageNumber = 0;
 int pause = 0;//0:なし 1:中断 2:ヘルプ 3:ゲームリザルト
@@ -11,6 +11,7 @@ void setup(){
     pauseImg = loadImage("image/pause.png");
     gameOverImg = loadImage("image/gameover.png");
     hideCommandModeImg = loadImage("image/hideCommandMode.png");
+    helpImg = loadImage("image/help.png");
     imageMode(CENTER);
     textAlign(CENTER);
     gameSetup();
@@ -18,6 +19,9 @@ void setup(){
 
 Boolean pauseCheck = false;
 void draw(){  
+  println(keyState.f1);
+  println(pause);
+  println("---------");
   if(pause == 0){
     pauseCheck = false;
     if(gameMode == 0){
@@ -34,7 +38,7 @@ void draw(){
         image(pauseImg,800/2,481/2);
       }
       if(pause==2){
-        
+        image(helpImg,800/2,481/2);
       }
       if(pause==3){
         image(gameOverImg,800/2,481/2);
@@ -58,7 +62,6 @@ void draw(){
   if(keyState.colon){
     keyState.commandMode = !keyState.commandMode;
   }
-  println(keyState.q);
   if(keyState.commandMode){
     String next = "command mode";
     textSize(20);
@@ -79,11 +82,14 @@ void draw(){
       keyState.q = false;
       keyState.commandMode = false;
     }
-    else if(keyState.h){
+  }
+  if(keyState.f1){
       if(pause==0){
         pause = 2;
       }
-    }
+      else if(pause==2){
+        pause = 0;
+      }
   }
   else{
     if(pause!=0)image(hideCommandModeImg,800/2,481/2);
@@ -127,6 +133,7 @@ void keyPressed() {
     if (keyCode == 'L') keyState.l = true;
     if (keyCode == 'Q') keyState.q = true;
     if (keyCode == 513)keyState.colon = true;
+    if (keyCode == 112)keyState.f1 = true;
     if (keyCode == ENTER)keyState.enter = true;
     if (keyCode == ESC)keyState.esc = true;
     if(gameMode == 0){
@@ -144,6 +151,7 @@ void keyReleased() {
     if (keyCode == 'L') keyState.l = false;
     if (keyCode == 'Q') keyState.q = false;
     if (keyCode == 513) keyState.colon = false;
+    if (keyCode == 112)keyState.f1 = false;
     if (keyCode == ENTER)keyState.enter = false;
     if (keyCode == ESC)keyState.esc = false;
 }
